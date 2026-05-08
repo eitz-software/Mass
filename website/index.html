@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maß</title>
+
+    <style>
+      :root {
+        --bg: #efebe2;
+        --bg-dark: #e5dfd3;
+        --text: #1f1f1b;
+        --muted: #5a5a52;
+        --line: #8b877e;
+        --card: #f3efe7;
+        --overlay: rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Courier New", Courier, monospace;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background-image: radial-gradient(
+          rgba(0, 0, 0, 0.025) 1px,
+          transparent 1px
+        );
+        background-size: 6px 6px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      header {
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+      }
+
+      .brand {
+        font-size: clamp(3rem, 8vw, 5rem);
+        font-weight: normal;
+        letter-spacing: 0.08em;
+        margin-bottom: 1rem;
+      }
+
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: var(--line);
+        margin: 1.5rem 0 3rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        min-height: 60vh;
+      }
+
+      .hero-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .tagline {
+        font-size: clamp(1.4rem, 2vw, 2rem);
+        line-height: 1.6;
+        max-width: 500px;
+      }
+
+      .description {
+        color: var(--muted);
+        line-height: 1.9;
+        font-size: 1rem;
+        max-width: 500px;
+      }
+
+      .download-btn {
+        width: fit-content;
+        text-decoration: none;
+        color: var(--text);
+        border: 1px solid var(--line);
+        padding: 1rem 1.8rem;
+        font-size: 1rem;
+        transition:
+          background 120ms ease,
+          transform 120ms ease;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .download-btn:hover {
+        background: var(--bg-dark);
+      }
+
+      .download-btn:active {
+        transform: translateY(1px);
+      }
+
+      .mockup-image {
+        width: 100%;
+        min-height: 760px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        background-image: url("./phone.png");
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+      }
+
+      footer {
+        margin-top: auto;
+        border-top: 1px solid var(--line);
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem 0;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a,
+      .footer-links button {
+        color: var(--muted);
+        text-decoration: none;
+        background: none;
+        border: none;
+        font-family: inherit;
+        font-size: inherit;
+        cursor: pointer;
+      }
+
+      .footer-links a:hover,
+      .footer-links button:hover {
+        color: var(--text);
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: var(--overlay);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        width: 100%;
+        max-width: 580px;
+        background: var(--bg);
+        border: 1px solid var(--line);
+        padding: 2rem;
+        position: relative;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: var(--muted);
+        font-family: inherit;
+      }
+
+      .modal h2 {
+        font-weight: normal;
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+      }
+
+      .support-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .support-card {
+        border: 1px solid var(--line);
+        padding: 1rem;
+        background: var(--card);
+      }
+
+      .support-card h3 {
+        font-size: 1rem;
+        margin-bottom: 0.8rem;
+        font-weight: normal;
+      }
+
+      .support-card p {
+        color: var(--muted);
+        line-height: 1.7;
+        word-break: break-word;
+      }
+
+      @media (max-width: 820px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+
+        .mockup-image {
+          min-height: 620px;
+        }
+
+        .brand {
+          font-size: 3.2rem;
+        }
+
+        .container {
+          padding: 1.4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 class="brand">Maß</h1>
+        <div class="divider"></div>
+      </header>
+
+      <main class="hero">
+        <section class="hero-text">
+          <p class="tagline">Turn your smartphone into a quieter device.</p>
+
+          <p class="description">
+            Maß is a calm Android home screen inspired by dumbphones, monochrome
+            interfaces and intentional computing. Keep the apps you need. Remove
+            the noise you do not.
+          </p>
+
+          <a href="#" class="download-btn"> Download for Android </a>
+        </section>
+
+        <section class="mockup-image"></section>
+      </main>
+    </div>
+
+    <footer>
+      <div class="container footer-content">
+        <div>© 2026 Maß</div>
+
+        <div class="footer-links">
+          <a href="#">Privacy</a>
+          <a href="#">Source</a>
+          <button id="supportButton">Support the developer</button>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal" id="supportModal">
+      <div class="modal-content">
+        <button class="modal-close" id="closeModal">×</button>
+
+        <h2>Support the developer</h2>
+
+        <div class="support-grid">
+          <div class="support-card">
+            <h3>USD</h3>
+            <p>
+              Bank: YOUR_BANK_NAME<br />
+              Account: XXXX-XXXX<br />
+              Routing: XXXXXXXX<br />
+              SWIFT: XXXXXXXX
+            </p>
+          </div>
+
+          <div class="support-card">
+            <h3>EUR</h3>
+            <p>
+              IBAN: XXXX XXXX XXXX XXXX<br />
+              BIC/SWIFT: XXXXXXXX
+            </p>
+          </div>
+
+          <div class="support-card">
+            <h3>BRL / PIX</h3>
+            <p>
+              PIX Key:<br />
+              your@email.com
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const supportButton = document.getElementById("supportButton");
+      const supportModal = document.getElementById("supportModal");
+      const closeModal = document.getElementById("closeModal");
+
+      supportButton.addEventListener("click", () => {
+        supportModal.classList.add("active");
+      });
+
+      closeModal.addEventListener("click", () => {
+        supportModal.classList.remove("active");
+      });
+
+      supportModal.addEventListener("click", (event) => {
+        if (event.target === supportModal) {
+          supportModal.classList.remove("active");
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          supportModal.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>
